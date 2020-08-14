@@ -45,10 +45,6 @@ resource "aws_instance" "tfdemo_instance" {
     Name = "tf-demo-${var.env}"
     Environment = var.env  
   }
-  tags = {
-    Name = "tf-demo-${var.env}"
-    Environment = var.env
-  }
 }
 
 
