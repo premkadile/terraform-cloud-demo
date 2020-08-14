@@ -32,7 +32,7 @@ resource "aws_security_group" "tf_demo_sg" {
 ## retool instance
 resource "aws_instance" "tfdemo_instance" {
   ami                        = data.aws_ami.amazon_linux_2.id
-  instance_type              = "t2.micro"
+  instance_type              = "t3.micro"
   key_name                   = "ntesttf"
   vpc_security_group_ids     = [aws_security_group.tf_demo_sg.id]
   subnet_id                  = "subnet-0d8b712f15c8e10bc"
