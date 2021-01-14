@@ -1,4 +1,4 @@
-name: "Terraform with Azure "
+name: "Terraform with AWS "
 on:
   push:
     branches:
