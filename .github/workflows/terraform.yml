@@ -9,11 +9,6 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    #env:
-      #ARM_CLIENT_ID: <client-id>
-      #ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
-      #ARM_SUBSCRIPTION_ID: <subscription-id>
-      #ARM_TENANT_ID: <tenant-id>
     defaults:
       run:
         shell: bash
@@ -25,7 +20,6 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.14.0
           #cli_config_credentials_hostname: 'terraform.example.com'
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
