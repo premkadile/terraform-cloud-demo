@@ -1,0 +1,43 @@
+name: "Terraform with Azure "
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+      - master
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+    #env:
+      #ARM_CLIENT_ID: <client-id>
+      #ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      #ARM_SUBSCRIPTION_ID: <subscription-id>
+      #ARM_TENANT_ID: <tenant-id>
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.14.0
+          #cli_config_credentials_hostname: 'terraform.example.com'
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        run: terraform init
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        run: terraform fmt -check
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: terraform plan 
+        # On push to master, build or change infrastructure according to Terraform configuration files
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: terraform apply -auto-approve
