@@ -1,16 +1,7 @@
-name: Terraform OIDC CI/CD
-on:
-  push:
-    branches:
-      - tf_cloud_demo
-
-permissions:
-  id-token: write   # REQUIRED for OIDC
-  contents: read
-
-jobs:
-  terraform:
+  apply:
+    needs: terraform
     runs-on: ubuntu-latest
+    environment: prod   # 👈 THIS IS THE APPROVAL GATE
 
     steps:
       - name: Checkout code
@@ -24,12 +15,6 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
