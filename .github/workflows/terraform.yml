@@ -3,7 +3,7 @@ name: Terraform OIDC CI/CD
 on:
   push:
     branches:
-      - main
+      - terraform-cloud-demo
 
 permissions:
   id-token: write   # REQUIRED for OIDC
